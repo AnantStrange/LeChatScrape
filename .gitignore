@@ -1,0 +1,8 @@
+backups
+.mypy_cache
+.ropeproject
+.venv
+.env
+*.txt
+*.log
+
