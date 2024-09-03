@@ -4,5 +4,6 @@ backups
 .venv
 .env
 *.txt
+!requirements.txt
 *.log
 
