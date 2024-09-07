@@ -1,22 +1,24 @@
 #! /usr/bin/env python3
 
-from rich.markup import escape as rich_escape
-import re
-import csv
 import argparse
-import threading
-import os
-from typing import Dict, List, Optional, Set, Tuple, Union, cast
-from datetime import datetime
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-import requests, time
-from bs4 import BeautifulSoup as bs, Tag
-from rich import print as pprint
+import csv
 import logging
 import os
+import re
+import smtplib
+import threading
+import time
+from datetime import datetime
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from typing import Dict, List, Optional, Set, Tuple, Union, cast
+
+import requests
+from bs4 import BeautifulSoup as bs
+from bs4 import Tag
 from dotenv import load_dotenv
+from rich import print as pprint
+from rich.markup import escape as rich_escape
 
 load_dotenv()
 
@@ -616,3 +618,14 @@ if __name__ == "__main__":
     chat_page = ChatPage(base_url=args.base_url, session_id=args.session, proxies=PROXIES)
 
     chat_page.run(log_filename=args.chatlog)
+    send_email(
+        subject="Script Alert - Script has ended",
+        body="The script's session has ended. Please update the session ID.",
+        to_email=TO_EMAIL,
+        from_email=FROM_EMAIL,
+        smtp_server=SMTP_SERVER,
+        smtp_port=SMTP_PORT,
+        smtp_user=SMTP_USER,
+        smtp_password=SMTP_PASSWORD,
+    )
+
