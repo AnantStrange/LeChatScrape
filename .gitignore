@@ -4,6 +4,8 @@ backups
 .venv
 .env
 *.txt
+*.csv
 !requirements.txt
 *.log
+
 

@@ -617,15 +617,17 @@ if __name__ == "__main__":
     check_connectivity()
     chat_page = ChatPage(base_url=args.base_url, session_id=args.session, proxies=PROXIES)
 
-    chat_page.run(log_filename=args.chatlog)
-    send_email(
-        subject="Script Alert - Script has ended",
-        body="The script's session has ended. Please update the session ID.",
-        to_email=TO_EMAIL,
-        from_email=FROM_EMAIL,
-        smtp_server=SMTP_SERVER,
-        smtp_port=SMTP_PORT,
-        smtp_user=SMTP_USER,
-        smtp_password=SMTP_PASSWORD,
-    )
+    try:
+        chat_page.run(log_filename=args.chatlog)
+    except Exception as e:
+        send_email(
+            subject="Script Alert - Script has ended",
+            body="The script's session has ended. error: " + str(e),
+            to_email=TO_EMAIL,
+            from_email=FROM_EMAIL,
+            smtp_server=SMTP_SERVER,
+            smtp_port=SMTP_PORT,
+            smtp_user=SMTP_USER,
+            smtp_password=SMTP_PASSWORD,
+        )
 
